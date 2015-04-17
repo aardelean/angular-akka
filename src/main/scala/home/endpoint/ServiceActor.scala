@@ -8,6 +8,6 @@ import akka.actor.Actor.Receive
  */
 class ServiceActor extends Actor{
   override def receive: Receive = {
-    case message@_ => sender ! "TEST"
+    case message@_ => sender ! message
   }
 }

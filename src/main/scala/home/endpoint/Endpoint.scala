@@ -24,32 +24,30 @@ class Endpoint() extends HttpServiceActor with ActorLogging{
   val actor : ActorRef = context.actorOf(Props[ServiceActor])
 
   override def receive = runRoute{
-    path("persist") {
-      get {
-        parameter('p){ (p)=>
-          transactional() {
-            new Person(new Date().toString)
-          }
-          complete("persisted")
-        }
-      }
-    } ~ path("index") {
-      get {
-        parameter('key) {
-          (key) => {
-              complete(s"$key")
+    pathPrefix("spray"){
+      path("persist") {
+        get {
+          parameter('p){ (p)=>
+            transactional() {
+              new Person(new Date().toString)
+            }
+            complete("persisted")
           }
         }
-      }
-    } ~ path("landingPage"){
-      get{
-        getFromResource("application.conf")
-      }
-    } ~ path("actor"){
-      get{
-          complete{
-            Await.result(( actor ? "TEST"), timeout.duration).asInstanceOf[String]
+      } ~ path("index") {
+        get {
+          parameter('key) {
+            (key) => {
+                complete(s"$key")
+            }
           }
+        }
+      } ~ path("actor"){
+        get{
+            complete{
+              Await.result(( actor ? "ACTOR RESPONSE"), timeout.duration).asInstanceOf[String]
+            }
+        }
       }
     }
   }
