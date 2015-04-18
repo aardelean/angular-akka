@@ -11,15 +11,23 @@ Get Started
 git clone https://github.com/aardelean/angular-akka.git
 
 server command line:
+
 sbt [-Dstage=prod]
+
 package
+
 ~container:start
 
 client command line (new command line):
+
 npm install -g bower
+
 npm install
+
 bower install
+
 gulp copy-bower
+
 gulp serve
 
 go to localhost:9000/index.html
