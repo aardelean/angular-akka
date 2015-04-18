@@ -2,7 +2,7 @@
 
 var wiredep = require('wiredep');
 var bowerDeps = wiredep({
-  directory: 'server/public/bower/bower',
+  directory: 'bower',
   exclude: ['bootstrap-sass-official'],
   dependencies: true,
   devDependencies: true
@@ -13,12 +13,12 @@ var bowerFiles = bowerDeps.js.map(function(file) {
 });
 
 var files = bowerFiles.concat([
-  './server/public/.tmp/assets/register.js',
-  './server/public/.tmp/assets/index.js',
-  './server/public/.tmp/assets/templateCacheHtml.js',
-  './server/public/.tmp/assets/**/*.js',
-  './server/public/.tmp/assets/**/*.mock.js',
-  './server/public/.tmp/assets/**/*.spec.js'
+  './.tmp/src/client/register.js',
+  './.tmp/src/client/index.js',
+  './.tmp/src/client/templateCacheHtml.js',
+  './.tmp/src/client/**/*.js',
+  './.tmp/src/client/**/*.mock.js',
+  './.tmp/src/client/**/*.spec.js'
 ]);
 
 var exclude = [];

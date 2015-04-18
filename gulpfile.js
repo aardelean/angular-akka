@@ -3,8 +3,8 @@
 var gulp = require('gulp');
 
 gulp.paths = {
-  bower: 'src/webapp/bower',
-  src: 'src/webapp/js',
+  bower: 'bower',
+  src: 'src/client',
   dist: 'target/webapp',
   tmp: 'target/webapp',
   views: 'server/views'

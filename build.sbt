@@ -19,6 +19,10 @@ val akkaV = "2.3.9"
 
 val sprayV = "1.3.3"
 
+val stage = settingKey[String]("stage")
+
+stage := sys.props.getOrElse("stage", default = "dev")
+
 libraryDependencies ++= Seq(
   "io.spray"            %%  "spray-servlet" % sprayV,
   "io.spray"            %%  "spray-routing" % sprayV,
@@ -42,5 +46,11 @@ javaOptions ++= Seq(
 )
 
 jetty()
+
+unmanagedResourceDirectories in Compile ++= Seq(file(baseDirectory.value + "/bower"),file(baseDirectory.value + "/src/main/" + stage.value))
+
+
+webInfClasses in webapp := true
+
 
 Revolver.settings 

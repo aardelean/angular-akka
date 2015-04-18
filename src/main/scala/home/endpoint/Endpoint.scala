@@ -1,11 +1,10 @@
-package home.endpoints
+package home.endpoint
 
 import java.util.Date
 
 import akka.actor.{Props, ActorRef, Actor, ActorLogging}
 import akka.util.Timeout
 import home.config.PersistenceConfiguration._
-import home.endpoint.ServiceActor
 import home.model.Person
 import akka.pattern._
 import spray.http.HttpMethods._

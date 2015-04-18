@@ -6,3 +6,4 @@ target/
 *.ipr
 *.iws
 node_modules/
+bower/

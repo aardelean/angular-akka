@@ -1,7 +1,7 @@
 package home.config
 
 import akka.actor.{Props, ActorSystem}
-import home.endpoints.Endpoint
+import home.endpoint.Endpoint
 import spray.servlet.WebBoot
 
 // This class is instantiated by the servlet initializer.
