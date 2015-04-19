@@ -13,6 +13,8 @@ import scala.concurrent.duration._
 import spray.http.{HttpRequest, HttpResponse, Uri}
 import spray.routing.Directives._
 import spray.routing.HttpServiceActor
+import spray.json._
+
 
 /**
  * Created by alex on 3/28/2015.
@@ -22,14 +24,13 @@ class Endpoint() extends HttpServiceActor with ActorLogging{
   implicit val timeout : Timeout = 5 seconds
   val actor : ActorRef = context.actorOf(Props[ServiceActor])
 
+  import home.model.Person._
+
   override def receive = runRoute{
     pathPrefix("spray"){
       path("persist") {
         get {
           parameter('p){ (p)=>
-            transactional() {
-              new Person(new Date().toString)
-            }
             complete("persisted")
           }
         }
@@ -46,6 +47,10 @@ class Endpoint() extends HttpServiceActor with ActorLogging{
             complete{
               Await.result(( actor ? "ACTOR RESPONSE"), timeout.duration).asInstanceOf[String]
             }
+        }
+      } ~ path("friends"){
+        get{
+          complete(List(Person("Alex", 30, "male"), Person("Andreea", 30, "female")).toJson.prettyPrint)
         }
       }
     }
