@@ -22,7 +22,7 @@ import spray.json._
  */
 class Endpoint() extends HttpServiceActor with ActorLogging{
   implicit val timeout : Timeout = 5 seconds
-  val actor : ActorRef = context.actorOf(Props[ServiceActor])
+  val actor : ActorRef = context.actorOf(Props[PersistPersonActor])
 
   import home.model.Person._
 
@@ -30,27 +30,23 @@ class Endpoint() extends HttpServiceActor with ActorLogging{
     pathPrefix("spray"){
       path("persist") {
         get {
-          parameter('p){ (p)=>
-            complete("persisted")
-          }
-        }
-      } ~ path("index") {
-        get {
-          parameter('key) {
-            (key) => {
-                complete(s"$key")
+          parameter('name){ (p)=>
+            complete {
+              Await.result((actor ? PersistRandomPerson(p)), timeout.duration).asInstanceOf[Person].toJson.prettyPrint
             }
           }
-        }
-      } ~ path("actor"){
-        get{
-            complete{
-              Await.result(( actor ? "ACTOR RESPONSE"), timeout.duration).asInstanceOf[String]
-            }
         }
       } ~ path("friends"){
         get{
-          complete(List(Person("Alex", 30, "male"), Person("Andreea", 30, "female")).toJson.prettyPrint)
+          complete{
+            Await.result((actor ? FetchAllPersons), timeout.duration).asInstanceOf[List[Person]].toJson.prettyPrint
+          }
+        }
+      } ~ path("hard") {
+        get {
+          complete {
+            Await.result((actor ? HardCoded), timeout.duration).asInstanceOf[List[Person]].toJson.prettyPrint
+          }
         }
       }
     }
