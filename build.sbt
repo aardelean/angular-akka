@@ -34,11 +34,10 @@ libraryDependencies ++= Seq(
   "org.eclipse.jetty" % "jetty-webapp" % "9.1.0.v20131115" % "container, compile",
   "org.scala-lang.modules" %% "scala-xml" % "1.0.2",
   "net.fwbrasil" %% "activate-core" % "1.7",
-  "net.fwbrasil" %% "activate-jdbc" % "1.7",
+  "net.fwbrasil" %% "activate-mongo" % "1.7",
   "org.mockito" % "mockito-core" % "1.10.17" % "test",
   "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
-  "com.novocode" % "junit-interface" % "0.9" % "test",
-  "mysql" % "mysql-connector-java" % "5.1.27"
+  "com.novocode" % "junit-interface" % "0.9" % "test"
 )
 
 javaOptions ++= Seq(
